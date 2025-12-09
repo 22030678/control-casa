@@ -1,38 +1,273 @@
-.App {
+/* ----------- GLOBAL ----------- */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  background: #f4f6fb;
+  color: #333;
+}
+
+h1, h2, h3 {
+  margin: 0;
+  font-weight: 600;
+}
+
+/* --- Dashboard Container --- */
+.dashboard-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.dashboard-header {
   text-align: center;
+  margin-bottom: 25px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.update-time {
+  color: #666;
+  font-size: 14px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* --- Summary Section --- */
+.summary-section {
+  margin-bottom: 30px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+}
+
+.summary-card {
+  padding: 20px;
+  border-radius: 15px;
+  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 5px;
+  font-size: 18px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.summary-card span {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.summary-card.yellow { background: #ffc940; }
+.summary-card.blue   { background: #5ab1ff; }
+.summary-card.green  { background: #57d89b; }
+.summary-card.purple { background: #a275ff; }
+
+/* --- Sections --- */
+.section-block {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.two-column-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 50px;
+}
+
+@media (max-width: 900px) {
+  .two-column-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.two-column-row > section {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.two-column-row > section .device-grid {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 30px;
+  align-content: start;
+}
+
+/* Device Grid Global */
+.device-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+/* Cards de Dispositivos */
+.device-card {
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+  padding-bottom: 15px;
+}
+
+.device-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Imagen */
+.device-image-container {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
+}
+
+.device-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Forzar altura fija y uniforme solo para tarjetas en Puertas/Ventanas */
+.two-column-row .device-card {
+  height: 540px;
+}
+
+.two-column-row .device-card .device-image {
+  height: 435px;
+}
+
+/* Etiquetas */
+.device-caption {
+  width: 100%;
+  padding: 10px 14px 0 14px;
+  text-align: center;
+  font-size: 16px;
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.device-subtitle {
+  width: 100%;
+  padding: 2px 14px 12px 14px;
+  text-align: center;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* Botones */
+.device-button,
+.device-toggle {
+  width: calc(100% - 28px);
+  padding: 12px 18px;
+  font-size: 16px;
+  border-radius: 10px;
+  margin: 10px 14px 18px;
+  border: none;
+  cursor: pointer;
+  background: #eef2ff;
+  color: #0f172a;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.device-toggle:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(15,23,42,0.06);
+}
+
+.device-toggle.active {
+  background: linear-gradient(90deg,#57d89b,#42c28a);
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(66,194,138,0.18);
+}
+
+.device-button.active {
+  background: linear-gradient(90deg,#57d89b,#42c28a);
   color: white;
+  font-weight: 700;
+  box-shadow: 0 6px 18px rgba(66,194,138,0.18);
+  transform: translateY(-1px);
 }
 
-.App-link {
-  color: #61dafb;
+/* --- Persiana --- */
+.blind-section {
+  background: white;
+  padding: 20px;
+  border-radius: 18px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.blind-control {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.blind-control button {
+  padding: 10px 16px;
+  border: none;
+  background: #5ab1ff;
+  color: white;
+  font-size: 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.blind-control button:hover {
+  background: #3394e6;
+}
+
+.blind-control input[type="range"] {
+  flex-grow: 1;
+}
+
+/* --- Footer --- */
+.footer {
+  text-align: center;
+  padding: 15px;
+  color: #262323;
+  margin-top: 40px;
+  font-size: 14px;
+}
+.footer a {
+  color: #5ab1ff;
+  text-decoration: none;
+}
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* FIX — Convertir realmente en botones visibles */
+
+.device-toggle,
+.device-button {
+  border: 2px solid #c7d2fe;        /* Borde visible */
+  background: #eef2ff;              /* Fondo suave */
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.device-toggle:hover,
+.device-button:hover {
+  background: #e0e7ff;              /* Color más fuerte al pasar */
+}
+
+.device-toggle.active,
+.device-button.active {
+  border: 2px solid #42c28a;        /* Borde para estado activo */
 }
