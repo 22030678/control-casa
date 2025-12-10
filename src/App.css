@@ -63,39 +63,6 @@ h1, h2, h3 {
 .summary-card.green  { background: #6a4201; }
 .summary-card.purple { background: #6a4201 }
 
-/* --- Sections --- */
-.section-block {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-.two-column-row {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 50px;
-}
-
-@media (max-width: 900px) {
-  .two-column-row {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.two-column-row > section {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.two-column-row > section .device-grid {
-  flex-grow: 1;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 30px;
-  align-content: start;
-}
-
 /* Device Grid Global */
 .device-grid {
   display: grid;
@@ -116,6 +83,8 @@ h1, h2, h3 {
   height: 100%;
   align-items: center;
   padding-bottom: 15px;
+  width: 230px;
+  min-height: 260px;
 }
 
 .device-card:hover {
@@ -137,15 +106,6 @@ h1, h2, h3 {
   display: block;
 }
 
-/* Forzar altura fija y uniforme solo para tarjetas en Puertas/Ventanas */
-.two-column-row .device-card {
-  height: 540px;
-}
-
-.two-column-row .device-card .device-image {
-  height: 435px;
-}
-
 /* Etiquetas */
 .device-caption {
   width: 100%;
@@ -156,15 +116,7 @@ h1, h2, h3 {
   font-weight: 600;
 }
 
-.device-subtitle {
-  width: 100%;
-  padding: 40px 14px 12px 14px;
-  text-align: center;
-  font-size: 30px;
-  color: #000000;
-}
-
-/* Botones */
+/* Botones (global) */
 .device-button,
 .device-toggle {
   width: calc(100% - 28px);
@@ -187,6 +139,7 @@ h1, h2, h3 {
   transform: translateY(-3px);
   box-shadow: 0 8px 24px rgba(15,23,42,0.06);
 }
+
 .device-button.active {
   background: linear-gradient(90deg,#57d89b,#42c28a);
   color: white;
@@ -195,85 +148,194 @@ h1, h2, h3 {
   transform: translateY(-1px);
 }
 
-/* --- Persiana --- */
-.blind-section {
-  background: white;
-  padding: 20px;
-  border-radius: 18px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
-}
-
-.blind-control {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-top: 10px;
-}
-
-.blind-control button {
-  padding: 10px 16px;
-  border: none;
-  background: #5ab1ff;
-  color: white;
-  font-size: 14px;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.blind-control button:hover {
-  background: #3394e6;
-}
-
-.blind-control input[type="range"] {
-  flex-grow: 1;
-}
-
-/* --- Footer --- */
-.footer {
-  text-align: center;
-  padding: 15px;
-  color: #262323;
-  margin-top: 40px;
-  font-size: 14px;
-}
-.footer a {
-  color: #5ab1ff;
-  text-decoration: none;
-}
-.footer a:hover {
-  text-decoration: underline;
-}
-
-/* FIX — Convertir realmente en botones visibles */
-
-.device-toggle,
-.device-button {
-  border: 2px solid #c7d2fe;        /* Borde visible */
-  background: #eef2ff;              /* Fondo suave */
-  border-radius: 12px;
-  cursor: pointer;
-}
-
 .device-toggle:hover,
 .device-button:hover {
-  background:#038618;              /* Color más fuerte al pasar */
+  background:#038618;
 }
 
 .device-toggle.active,
 .device-button.active {
-  border: 2px solid #ffffff;        /* Borde para estado activo */
+  border: 2px solid #ffffff;
 }
+
 .device-icon {
   width: 100%;
   height: 260px;
   object-fit: cover;
   border-radius: 12px 12px 0 0;
 }
-.sensor-image {
-  width: 75%;
-  height: 420px;
-  object-fit: cover;
-  border-radius: 12px 12px 0 0;
-  
+
+.big-section-title {
+  width: 100%;
+  background: #6a4201;
+  color: white;
+  text-align: center;
+  padding: 12px 0;
+  font-size: 23px;
+  font-weight: 800;
+  border-radius: 10px;
+  margin: 40px 0 20px;
+  letter-spacing: 1px;
+}
+
+/*/////LEDS/////*/
+.led-off {
+  background: #d4f8d4;
+  border: 2px solid #4caf50;
+  color: #185c1a;
+}
+
+.led-off:hover {
+  background: #4caf50 !important;
+  color: white !important;
+}
+
+.led-on {
+  background: #ffd6d6;
+  border: 2px solid #e53935;
+  color: #7a1412;
+}
+
+.led-on:hover {
+  background: #e53935 !important;
+  color: white !important;
+}
+
+.device-grid.leds-grid {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px;
+  justify-items: center;
+  padding: 0 5px;
+}
+
+/*/////SENSORES/////*/
+.sensor-status-text {
+  margin-top: 10px;
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.sensor-status-text.open {
+  color: #0a8a29;
+}
+
+.sensor-status-text.closed {
+  color: #c53030;
+}
+
+.device-grid.sensores-grid {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 10px;
+  justify-items: center;
+}
+
+/*/////CLIMA/////*/
+.climate-box {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.climate-value {
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.climate-label {
+  font-size: 22px;
+  font-weight: 600;
+  color: #444;
+}
+
+.climate-card {
+  width: 100% !important;
+  max-width: none !important;
+  min-height: auto;
+  padding: 30px;
+  box-sizing: border-box;
+  border-radius: 18px;
+  background: white;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+}
+
+.climate-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+  gap: 40px;
+  justify-items: center;
+}
+
+/*/////SERVOMOTOR/////*/
+.servo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 20px;
+  width: 100% !important;
+  max-width: auto !important;
+  padding: 30px;
+  box-sizing: border-box;
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.servo-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.servo-angle-display {
+  font-size: 42px;
+  font-weight: 700;
+  margin-top: 8px;
+  color: #444;
+}
+
+.servo-control-row {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 15px;
+  justify-content: center;
+}
+
+.servo-btn {
+  width: 55px;
+  height: 55px;
+  font-size: 30px;
+  font-weight: 700;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.servo-btn.minus {
+  background-color: #d9534f;
+  color: white;
+}
+.servo-btn.minus:hover {
+  background-color: #c9302c;
+}
+
+.servo-btn.plus {
+  background-color: #5cb85c;
+  color: white;
+}
+.servo-btn.plus:hover {
+  background-color: #449d44;
+}
+
+.servo-slider {
+  width: 85%;
 }

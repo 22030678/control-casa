@@ -10,6 +10,12 @@ const client = mqtt.connect(MQTT_URL, {
 
 client.on("connect", () => {
   console.log("🔌 Conectado a MQTT");
+
+  // 👈🔥 IMPORTANTE: suscribirse al tópico del servo
+  client.subscribe("domotica/servo/pos", (err) => {
+    if (err) console.error("❌ Error al suscribir:", err);
+    else console.log("📩 Suscrito a domotica/servo/pos");
+  });
 });
 
 client.on("error", (err) => {

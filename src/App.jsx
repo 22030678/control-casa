@@ -10,62 +10,51 @@ export default function App() {
   return (
     <div className="dashboard-container">
 
-      {/* Encabezado */}
+      {/* ENCABEZADO */}
       <header className="dashboard-header">
         <h1>Dashboard Domótico</h1>
         <p className="update-time">Última actualización: {updateTime}</p>
       </header>
 
-      {/* Resumen */}
-      <section className="summary-section">
-        <div className="summary-grid">
-          <div className="summary-card yellow">5 Focos<span>Activos / Inactivos</span></div>
-          <div className="summary-card blue">4 Sensores<span>Puertas / Ventanas</span></div>
-          <div className="summary-card green">Clima<span>Temperatura / Humedad</span></div>
-          <div className="summary-card purple">Persiana<span>Control de ángulo</span></div>
+ {/* FOCOS */}
+      <div className="big-section-title">Focos</div>
+      <section>
+        <div className="device-grid leds-grid">
+          <LedControl id={1} />
+          <LedControl id={2} />
+          <LedControl id={3} />
+          <LedControl id={4} />
+          <LedControl id={5} />
         </div>
       </section>
 
-      {/* Secciones */}
-      <div className="section-block">
+      {/* SENSORES */}
+      <div className="big-section-title">Sensores</div>
+      <section>
+        <div className="device-grid sensores-grid">
+          <SensorStatus name="Puerta 1" topic="domotica/sensores/p1" />
+          <SensorStatus name="Puerta 2" topic="domotica/sensores/p2" />
+          <SensorStatus name="Ventana 1" topic="domotica/sensores/v1" />
+          <SensorStatus name="Ventana 2" topic="domotica/sensores/v2" />
+        </div>
+      </section>
 
-        {/* FOCOS */}
-        <section>
-          <h2>Focos</h2>
-          <div className="device-grid">
-            <LedControl id={1} />
-            <LedControl id={2} />
-            <LedControl id={3} />
-            <LedControl id={4} />
-            <LedControl id={5} />
-          </div>
-        </section>
-
-        {/* PUERTAS Y VENTANAS */}
-        <section>
-          <h2>Puertas y Ventanas</h2>
-          <div className="two-column-row">
-            <SensorStatus name="Puerta 1" topic="domotica/sensores/p1" />
-            <SensorStatus name="Puerta 2" topic="domotica/sensores/p2" />
-            <SensorStatus name="Ventana 1" topic="domotica/sensores/v1" />
-            <SensorStatus name="Ventana 2" topic="domotica/sensores/v2" />
-          </div>
-        </section>
-
-        {/* CLIMA */}
-        <section>
-          <h2>Clima</h2>
+      {/* CLIMA */}
+      <div className="big-section-title">Clima</div>
+      <section>
+        <div className="single-card-center">
           <DHTStatus />
-        </section>
+        </div>
+      </section>
 
-        {/* PERSIANA */}
-        <section>
-          <h2>Persiana</h2>
-          <div className="blind-section">
-            <ServoControl />
-          </div>
-        </section>
-      </div>
+      {/* PERSIANA */}
+      <div className="big-section-title">Persiana</div>
+      <section>
+        <div className="single-card-center">
+          <ServoControl />
+        </div>
+      </section>
+
     </div>
   );
 }
