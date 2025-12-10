@@ -13,6 +13,7 @@
 // CONFIG MQTT
 //------------------------------------------
 const char* mqtt_server = "192.168.100.38";
+const int mqtt_port = 1883; 
 WiFiClient espClient;
 PubSubClient client(espClient);
 
@@ -82,7 +83,6 @@ void mqttCallback(char* topic, byte* payload, unsigned int length) {
     Serial.println(v ? "ENCENDIDO" : "APAGADO");
 }
 
-  // Control del servo desde dashboard
   if (String(topic) == TOPIC_SERVO) {
     int angle = msg.toInt();
     if (angle < 0) angle = 0;
@@ -91,12 +91,9 @@ void mqttCallback(char* topic, byte* payload, unsigned int length) {
     myServo.write(angle);
     currentServoAngle = angle;
 
-    // * PUBLICA SIEMPRE SU ESTADO *
-    client.publish(TOPIC_SERVO, String(angle).c_str());
-
     Serial.print("Servo movido por dashboard → ");
     Serial.println(angle);
-  }
+}
 }
 
 //------------------------------------------
@@ -115,9 +112,6 @@ void reconnect() {
 
       // Suscribirse al servo
       client.subscribe(TOPIC_SERVO);
-
-      // PUBLICA EL ESTADO DEL SERVO PARA QUE APAREZCA EL TOPICO
-      client.publish(TOPIC_SERVO, String(currentServoAngle).c_str());
 
     } else {
       Serial.print("Fallo: ");
@@ -155,17 +149,8 @@ void setup() {
 
   // SERVO
   myServo.attach(servoPin);
-  myServo.write(0);
-  delay(500);
-  myServo.write(90);
-  delay(500);
-  myServo.write(180);
-  delay(500);
-  myServo.write(0);
-  delay(500);
-
-  currentServoAngle = 0; // Ángulo inicial
-
+  delay(300);
+  myServo.write(currentServoAngle);
   Serial.println("Servo OK.");
 
   // WIFI
